@@ -1,20 +1,45 @@
-// LetCode-6.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+#include <string>
+#include <vector>
 
+using namespace std;
+
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        vector<string> result(numRows);
+        bool is_straight = true;
+        for (int i = 0; i < s.size();) {
+            if (is_straight) {
+                for (int j = 0; j < numRows; j++) {
+                    result[j] = result[j] + s[i];
+                    i++;
+                    if (i == s.size())
+                    {
+                        break;
+                    }
+                }
+            }
+            else {
+                for (int j = numRows - 2; j > 0; j--) {
+                    result[j] = result[j] + s[i];
+                    i++;
+                    if (i == s.size())
+                    {
+                        break;
+                    }
+                }
+            }
+            is_straight = !is_straight;
+        }
+        string res;
+        for (auto i : result) res = res + i;
+        return  res;
+    }
+};
 int main()
 {
-    std::cout << "Hello World!\n";
+    Solution test;
+    cout << test.convert("ABCD", 2);
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
